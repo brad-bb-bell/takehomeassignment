@@ -1,13 +1,15 @@
-import { getGreeting } from '../support/app.po';
+import { getAddMovieButton, getMovies } from '../support/app.po';
 
 describe('movies', () => {
   beforeEach(() => cy.visit('/'));
+});
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
+describe('MovieApps', () => {
+  beforeEach(() => cy.visit('/'));
 
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome movies');
+  it('should display movies', () => {
+    getMovies().should((t) => expect(t.length).equal(2));
+    getAddMovieButton().click();
+    getMovies().should((t) => expect(t.length).equal(3));
   });
 });
